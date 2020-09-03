@@ -16,7 +16,7 @@ public class Control extends JPanel implements ActionListener
 	Timer loopTimer;	// Timer for the program's loop.
 	
 	ArrayList<Boton> botones;
-	ArrayList<CampoTexto> campos;
+	ArrayList<SearchBar> campos;
 
 	// Constructor
 	public Control()
@@ -27,10 +27,12 @@ public class Control extends JPanel implements ActionListener
 		loopTimer.start();
 		
 		botones = new ArrayList<Boton>();
-		campos = new ArrayList<CampoTexto>();
+		campos = new ArrayList<SearchBar>();
 		
-		botones.add(new Boton(100, 100, 100, 100, 800, 600, "lol"));
-		campos.add(new CampoTexto(100, 100, 100, 100, 800, 200, "lol"));
+		botones.add(new Boton(100, 100, 100, 100, 800, 600, "Todos los\nActores"));
+		
+		
+		campos.add(new SearchBar(100, 100, (int)(Main.rw/1.5), 84, 800, 200, "Buscar (película, director, actor...)"));
 	}
 	
 	
@@ -41,8 +43,8 @@ public class Control extends JPanel implements ActionListener
 		Graphics2D g2d = (Graphics2D) g;
 		
 		// Fondo
-		//g2d.setColor(Color.black);
-		//g2d.fillRect(0, 0, 1920, 1080);
+		g2d.setColor(Color.black);
+		g2d.fillRect(0, 0, 1920, 1080);
 		
 		// Dibuja todos los botones.
 		for (int i=0; i<botones.size(); i++)

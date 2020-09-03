@@ -1,12 +1,12 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.TextField;
 
-import javax.swing.JTextField;
 
-public class CampoTexto
+public class SearchBar
 {
-	JTextField campo;
+	TextField campo;
 	String def;
 	
 	int x;			// Instance's actual X position.
@@ -23,9 +23,11 @@ public class CampoTexto
 	boolean hover;	// If it's being hovered by the mouse.
 	Color color;
 	
+	Font font;
+	
 	
 	// Constructor
-	public CampoTexto(int x_, int y_, int w_, int h_, int xf_, int yf_, String text_)
+	public SearchBar(int x_, int y_, int w_, int h_, int xf_, int yf_, String text_)
 	{
 		x = x_;
 		y = y_;
@@ -38,11 +40,14 @@ public class CampoTexto
 		def = text_;
 		
 		hover = false;
-		color = Color.blue;
+		color = Color.orange;
 		
-		campo = new JTextField(def, 20);
-		campo.setBounds(x, y, w, h);
-		//Main.frame.add(campo);
+		campo = new TextField(def);
+		campo.setBounds(x-w/2, y-h/2, w, h);
+		campo.setBackground(color);
+		font = new Font("SansSerif", Font.BOLD, 64);
+		campo.setFont(font);
+		Main.frame.add(campo);
 	}
 	
 	
@@ -52,18 +57,15 @@ public class CampoTexto
 		x = lerp(x, xf, 0.05);
 		y = lerp(y, yf, 0.05);
 		
-		//campo.setBounds(x, y, w, h);
-		
+		campo.setLocation(x-w/2, y-h/2);		
 	}
 	
 	
 	// Draw
 	public void draw(Graphics2D g2d)
 	{
-		g2d.setColor(color);
-		g2d.fillRect(x-w/2, y-h/2, w, h);
-		
-		Main.frame.add(campo);
+		//g2d.setColor(color);
+		//g2d.fillRect(x-w/2, y-h/2, w, h);
 	}
 	
 	

@@ -15,6 +15,7 @@ public class Boton
 	int ys;
 	
 	boolean hover;	// If it's being hovered by the mouse.
+	boolean entry;
 	Color color;
 	
 	
@@ -32,6 +33,7 @@ public class Boton
 		text = text_;
 		
 		hover = false;
+		entry = true;
 		color = Color.orange;
 	}
 	
@@ -39,16 +41,21 @@ public class Boton
 	// Step
 	public void update()
 	{
-		x = lerp(x, xf, 0.05);
-		y = lerp(y, yf, 0.05);
+		x = lerp(x, entry ? xf : xs, 0.05);
+		y = lerp(y, entry ? yf : ys, 0.05);
 	}
 	
 	
 	// Draw
 	public void draw(Graphics2D g2d)
 	{
+		// Square
 		g2d.setColor(color);
 		g2d.fillRect(x-w/2, y-h/2, w, h);
+		
+		// Text
+		g2d.setColor(Color.black);
+		g2d.drawString(text, x, y);
 	}
 	
 	
