@@ -26,7 +26,7 @@ public class DBConnect
 	{
 		try
 		{
-			String query = "SELECT * FROM `pelicula` WHERE `Titulo` LIKE '%"+text+"%'";
+			String query = "SELECT * FROM `pelicula` WHERE `Titulo` LIKE '%"+text+"%' LIMIT 5";
 			rs = st.executeQuery(query);
 			
 			Control.peliculas.clear();

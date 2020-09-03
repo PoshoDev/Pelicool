@@ -1,11 +1,9 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.FileInputStream;
 import java.net.URL;
-
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 public class Pelicula
 {
@@ -47,7 +45,6 @@ public class Pelicula
 			System.out.println("ERROR: "+ex);
 		}
 		
-		
 		w = (int)(Main.rw/1.5);
 	}
 	
@@ -65,7 +62,8 @@ public class Pelicula
 		
 		// Text
 		g2d.setColor(Color.orange);
-		g2d.drawString(titulo+" ("+año+")", x, y);
+		g2d.setFont(new Font("SansSerif", Font.BOLD, 48));
+		g2d.drawString(titulo+" ("+año+")", x+186, y+48+8);
 		g2d.drawString(descripcion, x, y+64);
 		g2d.drawString(genero+" "+duracion+" min.", x, Main.len - 32);
 		
