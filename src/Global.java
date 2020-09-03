@@ -35,6 +35,9 @@ public class Global extends JPanel implements ActionListener
 	{
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
+		
+		for (int i=0; i<buttons.size(); i++)
+			buttons.get(i).draw(g2d);
 	}
 	
 	
