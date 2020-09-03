@@ -107,10 +107,7 @@ public class Control extends JPanel implements ActionListener
 			}
 		}
 		
-		// Mouse
-		if (Main.input.isMouseClicked())
-			System.out.println(Main.input.getMouseX() + ", "+ Main.input.getMouseY());
-		Main.input.clearMouseClick();
+		
 		
 		// Actualiza todos los botones.
 		for (int i=0; i<botones.size(); i++)
@@ -119,6 +116,10 @@ public class Control extends JPanel implements ActionListener
 		// Actualiza todos los campos de texto.
 		for (int i=0; i<campos.size(); i++)
 			campos.get(i).update();
+		
+		// Actualiza todas las películas.
+		for (int i=0; i<peliculas.size(); i++)
+			peliculas.get(i).update();
 			
 		
 		// Draws everything at the end.

@@ -22,6 +22,7 @@ public class Main
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.addMouseListener(input);
+		frame.addMouseMotionListener(input);
 		frame.add(new Control());
 		frame.setVisible(true);
 	}

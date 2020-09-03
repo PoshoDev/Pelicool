@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 public class Pelicula
 {
-	int x, y, w;
+	int x, y, w, h;
 	
 	String titulo;
 	String año;
@@ -19,7 +19,9 @@ public class Pelicula
 	Image portada = null;
 	int imgw;
 	
-	Boton edit;
+	boolean hover;
+	boolean edit;
+	Boton edit_button;
 	
 	
 	public Pelicula(int x_, int y_, String t, String a, String g, String du, String de, String url_)
@@ -49,14 +51,36 @@ public class Pelicula
 		}
 		
 		w = (int)(Main.rw/1.5);
+		h = Main.len;
 		
-		
-		edit = new Boton(w-64, y, 64, 64, Main.rw/2, Main.rh/2, "Editar");
+		hover = false;
+		edit = false;
+		edit_button = null;
 	}
 	
 	
 	// Step
-	public void update() {}
+	public void update()
+	{
+		
+		Main.input.isMouseClicked(); // lmao
+		System.out.println(Main.input.getMouseX() + ", "+ Main.input.getMouseY());
+		
+		int mx = Main.input.getMouseX();
+		int my = Main.input.getMouseY();
+		boolean inside = (mx>x && mx<x+w && my>y && my<y+h);
+		
+		if (!hover && inside)
+		{
+			hover = true;
+			edit_button = new Boton(w-64, y, 64, 64, Main.rw/2, Main.rh/2, "Editar");
+		}
+		else if (hover && !inside)
+		{
+			hover = false;
+			edit_button = null;
+		}
+	}
 		
 	
 	// Draw
@@ -64,7 +88,7 @@ public class Pelicula
 	{
 		// Square
 		g2d.setColor(Color.DARK_GRAY);
-		g2d.fillRect(x, y, w, Main.len);
+		g2d.fillRect(x, y, w, h);
 		
 		
 		// Text
@@ -88,8 +112,9 @@ public class Pelicula
 		g2d.drawImage(portada, x, y, imgw, Main.len, null);
 		
 		
-		// Buttons
-		edit.draw(g2d);
+		// Button
+		if (hover)
+			edit_button.draw(g2d);
 	}
 	
 	
