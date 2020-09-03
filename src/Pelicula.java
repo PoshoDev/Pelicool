@@ -62,10 +62,6 @@ public class Pelicula
 	// Step
 	public void update()
 	{
-		
-		Main.input.isMouseClicked(); // lmao
-		System.out.println(Main.input.getMouseX() + ", "+ Main.input.getMouseY());
-		
 		int mx = Main.input.getMouseX();
 		int my = Main.input.getMouseY();
 		boolean inside = (mx>x && mx<x+w && my>y && my<y+h);
@@ -73,7 +69,7 @@ public class Pelicula
 		if (!hover && inside)
 		{
 			hover = true;
-			edit_button = new Boton(w-64, y, 64, 64, Main.rw/2, Main.rh/2, "Editar");
+			edit_button = new Boton(x+w-64, y, 64, 64, Main.rw/2, Main.rh/2, "Editar");
 		}
 		else if (hover && !inside)
 		{
@@ -114,7 +110,12 @@ public class Pelicula
 		
 		// Button
 		if (hover)
+		{
 			edit_button.draw(g2d);
+			
+			g2d.setColor(Color.white);
+			g2d.drawRect(x, y, w, h);
+		}
 	}
 	
 	

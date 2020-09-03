@@ -17,6 +17,7 @@ public class Boton
 	boolean hover;	// If it's being hovered by the mouse.
 	boolean entry;
 	Color color;
+	Color color_hover;
 	
 	
 	// Constructor
@@ -35,16 +36,26 @@ public class Boton
 		hover = false;
 		entry = true;
 		color = Color.orange;
+		color_hover = Color.red;
 	}
 	
 	
 	// Step
 	public void update()
 	{
-		/*// Mouse
-		if (Main.input.isMouseClicked())
-			System.out.println(Main.input.getMouseX() + ", "+ Main.input.getMouseY());
-		Main.input.clearMouseClick();*/
+		// Mouse
+		int mx = Main.input.getMouseX();
+		int my = Main.input.getMouseY();
+		boolean inside = (mx>x && mx<x+w && my>y && my<y+h);
+		
+		if (!hover && inside)
+		{
+			hover = true;
+		}
+		else if (hover && !inside)
+		{
+			hover = false;
+		}
 				
 		// Movement
 		x = lerp(x, entry ? xf : xs, 0.05);
@@ -56,12 +67,19 @@ public class Boton
 	public void draw(Graphics2D g2d)
 	{
 		// Square
-		g2d.setColor(color);
-		g2d.fillRect(x-w/2, y-h/2, w, h);
+		g2d.setColor(hover ? color_hover : color);
+		g2d.fillRect(x, y, w, h);
 		
 		// Text
 		g2d.setColor(Color.black);
-		g2d.drawString(text, x, y);
+		g2d.drawString(text, x, y+h/2);
+		
+		// Hover
+		if (hover)
+		{
+			g2d.setColor(Color.white);
+			g2d.drawRect(x, y, w, h);
+		}
 	}
 	
 	
