@@ -23,6 +23,8 @@ public class Control extends JPanel implements ActionListener
 	SearchBar 	search;
 	
 	String deftext;
+	
+	DBConnect connect;
 
 	// Constructor
 	public Control()
@@ -41,6 +43,9 @@ public class Control extends JPanel implements ActionListener
 		deftext = "Buscar (película, director, actor...)";
 		search = new SearchBar(100, 100, (int)(Main.rw/1.5), 84, 800, 200, deftext);
 		campos.add(search);
+		
+		connect = new DBConnect();
+		connect.getData();
 	}
 	
 	
