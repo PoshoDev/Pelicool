@@ -10,6 +10,8 @@ public class Main
 	
 	static int len = 256;
 	
+	static Input input = new Input();
+	
 	
 	public static void main(String args[])
 	{
@@ -19,6 +21,7 @@ public class Main
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addMouseListener(input);
 		frame.add(new Control());
 		frame.setVisible(true);
 	}

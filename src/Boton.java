@@ -59,6 +59,12 @@ public class Boton
 	}
 	
 	
+	public void perform()
+	{
+		
+	}
+	
+	
 	public int lerp(int p1, int p2, double alpha)
 	{
 		return (int) (p1 + alpha * (p2 - p1));

@@ -107,6 +107,11 @@ public class Control extends JPanel implements ActionListener
 			}
 		}
 		
+		// Mouse
+		if (Main.input.isMouseClicked())
+			System.out.println(Main.input.getMouseX() + ", "+ Main.input.getMouseY());
+		Main.input.clearMouseClick();
+		
 		// Actualiza todos los botones.
 		for (int i=0; i<botones.size(); i++)
 			botones.get(i).update();
