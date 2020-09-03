@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.TextField;
 
 import javax.swing.JTextField;
 
@@ -51,7 +52,7 @@ public class CampoTexto
 		x = lerp(x, xf, 0.05);
 		y = lerp(y, yf, 0.05);
 		
-		campo.setBounds(x, y, w, h);
+		//campo.setBounds(x, y, w, h);
 		
 	}
 	

@@ -1,6 +1,5 @@
 import java.awt.Color;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 public class Main
 {
@@ -15,9 +14,9 @@ public class Main
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//JTextField campo = new JTextField("lamao", 20);
-		//campo.setBounds(100, 100, 100, 100);
-		//frame.add(campo);
+		/*JTextField campo = new JTextField("lamao", 20);
+		campo.setBounds(100, 100, 100, 100);
+		frame.add(campo);*/
 		
 		frame.add(new Control());
 		
