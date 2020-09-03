@@ -41,8 +41,8 @@ public class Boton
 	// Step
 	public void update()
 	{
-		x = lerp(x, entry ? xf : xs, 0.05);
-		y = lerp(y, entry ? yf : ys, 0.05);
+		x = lerp(x, entry ? xs : xf, 0.05);
+		y = lerp(y, entry ? ys : yf, 0.05);
 	}
 	
 	

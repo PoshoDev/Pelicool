@@ -57,7 +57,7 @@ public class SearchBar
 		x = lerp(x, xf, 0.05);
 		y = lerp(y, yf, 0.05);
 		
-		campo.setLocation(x-w/2, y-h/2);		
+		campo.setLocation(x-w/2, y-h/2);
 	}
 	
 	

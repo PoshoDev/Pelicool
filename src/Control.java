@@ -17,6 +17,12 @@ public class Control extends JPanel implements ActionListener
 	
 	ArrayList<Boton> botones;
 	ArrayList<SearchBar> campos;
+	
+	// Specifics
+	Boton		but_actors;
+	SearchBar 	search;
+	
+	String deftext;
 
 	// Constructor
 	public Control()
@@ -29,10 +35,12 @@ public class Control extends JPanel implements ActionListener
 		botones = new ArrayList<Boton>();
 		campos = new ArrayList<SearchBar>();
 		
-		botones.add(new Boton(100, 100, 100, 100, 800, 600, "Todos los\nActores"));
+		but_actors = new Boton(-200, Main.rh/2, 100, 100, Main.rw/2, Main.rh/2, "Todos los\nActores");
+		botones.add(but_actors);
 		
-		
-		campos.add(new SearchBar(100, 100, (int)(Main.rw/1.5), 84, 800, 200, "Buscar (película, director, actor...)"));
+		deftext = "Buscar (película, director, actor...)";
+		search = new SearchBar(100, 100, (int)(Main.rw/1.5), 84, 800, 200, deftext);
+		campos.add(search);
 	}
 	
 	
@@ -59,6 +67,15 @@ public class Control extends JPanel implements ActionListener
 	// Step Event
 	public void actionPerformed(ActionEvent e)
 	{
+		if (search!=null && search.campo.getText().contentEquals(deftext))
+		{
+			but_actors.entry = false;
+		}
+		else
+		{
+			but_actors.entry = true;
+		}
+		
 		// Actualiza todos los botones.
 		for (int i=0; i<botones.size(); i++)
 			botones.get(i).update();
