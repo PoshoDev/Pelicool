@@ -17,10 +17,13 @@ public class SearchBar
 	int yf;			// Where it wants to go Y.
 	String text;	// What it says.
 	
+	int yfo;
+	
 	int xs;
 	int ys;
 	
 	boolean hover;	// If it's being hovered by the mouse.
+	boolean entry;
 	Color color;
 	
 	Font font;
@@ -37,9 +40,11 @@ public class SearchBar
 		ys = y;
 		xf = xf_;
 		yf = yf_;
+		yfo = yf;
 		def = text_;
 		
 		hover = false;
+		entry = true;
 		color = Color.orange;
 		
 		campo = new TextField(def);
@@ -54,6 +59,11 @@ public class SearchBar
 	// Step
 	public void update()
 	{
+		if (!entry)
+			yf = 100;
+		else
+			yf = yfo;
+		
 		x = lerp(x, xf, 0.05);
 		y = lerp(y, yf, 0.05);
 		

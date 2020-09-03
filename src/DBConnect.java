@@ -31,10 +31,10 @@ public class DBConnect
 			
 			Control.peliculas.clear();
 			
-			int x = 128;
-			int y = 300;
+			int x = (int)(Main.rw/3/2);
+			int y = 164;
 			
-			System.out.println("Query:");
+			System.out.println("\nQuery:");
 			while(rs.next())
 			{
 				String t =   rs.getString("Titulo");
@@ -71,9 +71,6 @@ public class DBConnect
 			{
 				String titulo = rs.getString("Titulo");
 				String año = rs.getString("Año");
-				/*String titulo = rs.getString("Titulo");
-				String titulo = rs.getString("Titulo");
-				String titulo = rs.getString("Titulo");*/
 				
 				System.out.println(titulo+" ("+año+")");
 			}

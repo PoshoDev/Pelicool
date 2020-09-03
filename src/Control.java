@@ -42,12 +42,12 @@ public class Control extends JPanel implements ActionListener
 		
 		peliculas = new ArrayList<Pelicula>();
 		
-		but_actors = new Boton(-200, Main.rh/2, 100, 100, Main.rw/2, Main.rh/2, "Todos los\nActores");
+		but_actors = new Boton(-2000, Main.rh/2, 100, 100, Main.rw/2, Main.rh/2, "Todos los\nActores");
 		botones.add(but_actors);
 		
 		deftext = "Buscar (película, director, actor...)";
 		prevtext = deftext;
-		search = new SearchBar(100, 100, (int)(Main.rw/1.5), 84, 800, 200, deftext);
+		search = new SearchBar((int)(Main.rw/2), -300, (int)(Main.rw/1.5), 84, (int)(Main.rw/2), 400, deftext);
 		campos.add(search);
 		
 		connect = new DBConnect();		
@@ -85,12 +85,25 @@ public class Control extends JPanel implements ActionListener
 		{
 			String tx = search.campo.getText();
 			
-			if (connect!=null && !tx.contentEquals("") && !tx.contentEquals(deftext) && !tx.contentEquals(prevtext))
+			if (!tx.contentEquals(prevtext))
 			{
 				prevtext = tx;
-				connect.Buscar(tx);
 				
-				but_actors.entry = false;
+				if (connect!=null && !tx.contentEquals("") && !tx.contentEquals(deftext))
+				{
+					connect.Buscar(tx);
+					
+					search.entry = false;
+					but_actors.entry = false;
+				}
+				else
+				{
+					search.entry = true;
+					but_actors.entry = true;
+					
+					if (peliculas != null)
+						peliculas.clear();
+				}
 			}
 		}
 		
