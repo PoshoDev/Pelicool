@@ -42,7 +42,7 @@ public class Control extends JPanel implements ActionListener
 		
 		peliculas = new ArrayList<Pelicula>();
 		
-		but_actors = new Boton(-2000, Main.rh/2, 100, 100, Main.rw/2, Main.rh/2, "Todos los\nActores");
+		but_actors = new Boton(-2000, Main.rh/2, 100, 100, Main.rw/2, Main.rh/2, "Todos los\nActores", but_type.ALL_ACTORS);
 		botones.add(but_actors);
 		
 		deftext = "Buscar (película, director, actor...)";

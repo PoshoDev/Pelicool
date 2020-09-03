@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+enum but_type { EDIT, ALL_ACTORS };
+
 public class Boton
 {
 	int x;			// Instance's actual X position.
@@ -10,6 +12,9 @@ public class Boton
 	int xf;			// Where it wants to go X.
 	int yf;			// Where it wants to go Y.
 	String text;	// What it says.
+	but_type type;
+	
+	boolean pressed;
 	
 	int xs;
 	int ys;
@@ -21,7 +26,7 @@ public class Boton
 	
 	
 	// Constructor
-	public Boton(int x_, int y_, int w_, int h_, int xf_, int yf_, String text_)
+	public Boton(int x_, int y_, int w_, int h_, int xf_, int yf_, String text_, but_type type_)
 	{
 		x = x_;
 		y = y_;
@@ -32,9 +37,12 @@ public class Boton
 		xf = xf_;
 		yf = yf_;
 		text = text_;
+		type = type_;
 		
 		hover = false;
 		entry = true;
+		pressed = false;
+		
 		color = Color.orange;
 		color_hover = Color.red;
 	}
@@ -56,6 +64,9 @@ public class Boton
 		{
 			hover = false;
 		}
+		
+		if (hover && Main.input.isMousePressed())
+			pressed = true;
 				
 		// Movement
 		x = lerp(x, entry ? xf : xs, 0.05);
@@ -85,7 +96,12 @@ public class Boton
 	
 	public void perform()
 	{
-		
+		switch(type)
+		{
+			case EDIT:
+				
+			break;
+		}
 	}
 	
 	

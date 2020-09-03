@@ -4,17 +4,20 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.net.URL;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 
 public class Pelicula
 {
-	int x, y, w, h;
+	int x, y, w, h, stx;
 	
 	String titulo;
 	String año;
 	String genero;
 	String duracion;
 	String descripcion;
+	String url;
 	
 	Image portada = null;
 	int imgw;
@@ -23,22 +26,27 @@ public class Pelicula
 	boolean edit;
 	Boton edit_button;
 	
+	ArrayList<InputBox> inputs;
+	
 	
 	public Pelicula(int x_, int y_, String t, String a, String g, String du, String de, String url_)
 	{
 		x = x_;
 		y = y_;
 		
+		stx = x + 192;
+		
 		titulo = 	  t;
 		año = 		  a;
 		genero = 	  g.substring(0, 1).toUpperCase() + g.substring(1);
 		duracion = 	  du;
 		descripcion = de;
+		url =		  url_;
 		
 		try
 		{
-			URL url = new URL(url_);
-			portada = ImageIO.read(url);
+			URL link = new URL(url_);
+			portada = ImageIO.read(link);
 			
 			int ow = portada.getWidth(null);
 			int oh = portada.getHeight(null);
@@ -56,6 +64,8 @@ public class Pelicula
 		hover = false;
 		edit = false;
 		edit_button = null;
+		
+		inputs = new ArrayList<InputBox>();
 	}
 	
 	
@@ -69,12 +79,31 @@ public class Pelicula
 		if (!hover && inside)
 		{
 			hover = true;
-			edit_button = new Boton(x+w-64, y, 64, 64, Main.rw/2, Main.rh/2, "Editar");
+			edit_button = new Boton(x+w-64, y, 64, 64, x+w-64, y, "Editar", but_type.EDIT);
 		}
 		else if (hover && !inside)
 		{
 			hover = false;
 			edit_button = null;
+		}
+		
+		if (edit_button != null)
+		{
+			edit_button.update();
+			
+			if (edit_button.pressed)
+			{
+				edit_button.pressed = false;
+				edit = true;
+				
+				int i = 0;
+				inputs.add(new InputBox(stx, y+8+(24*i++), "Título:", titulo));
+				inputs.add(new InputBox(stx, y+8+(24*i++), "Año:", año));
+				inputs.add(new InputBox(stx, y+8+(24*i++), "Género:", genero));
+				inputs.add(new InputBox(stx, y+8+(24*i++), "Duración:", duracion));
+				inputs.add(new InputBox(stx, y+8+(24*i++), "Descripción:", descripcion));
+				inputs.add(new InputBox(stx, y+8+(24*i++), "URL Imagen:", url));
+			}
 		}
 	}
 		
@@ -88,20 +117,22 @@ public class Pelicula
 		
 		
 		// Text
-		int stx = x + 192;
-		g2d.setColor(Color.orange);
-		
-		g2d.setFont(new Font("SansSerif", Font.BOLD, 48));
-		g2d.drawString(titulo+" ("+año+")", stx, y+48+8);
-		
-		
-		g2d.setFont(new Font("SansSerif", Font.BOLD, 18));
-		FontMetrics fm= g2d.getFontMetrics();
-		//g2d.drawString(descripcion, x, y+64);
-		drawTextUgly(descripcion, stx, y+48+8*5, fm, g2d);
-		
-		g2d.drawString(genero, stx, y+Main.len - 24-12);
-		g2d.drawString(duracion+" min.", stx, y+Main.len - 12);
+		if (!edit)
+		{
+			g2d.setColor(Color.orange);
+			
+			g2d.setFont(new Font("SansSerif", Font.BOLD, 48));
+			g2d.drawString(titulo+" ("+año+")", stx, y+48+8);
+			
+			
+			g2d.setFont(new Font("SansSerif", Font.BOLD, 18));
+			FontMetrics fm= g2d.getFontMetrics();
+			//g2d.drawString(descripcion, x, y+64);
+			drawTextUgly(descripcion, stx, y+48+8*5, fm, g2d);
+			
+			g2d.drawString(genero, stx, y+Main.len - 24-12);
+			g2d.drawString(duracion+" min.", stx, y+Main.len - 12);
+		}
 		
 		
 		// Cover
