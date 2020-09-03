@@ -1,29 +1,34 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Button
+public class Boton
 {
 	int x;			// Instance's actual X position.
 	int y;			// Instance's actual Y position.
 	int w;			// Width.
 	int h;			// Height.
-	int x2;			// Where it wants to go X.
-	int y2;			// Where it wants to go Y.
+	int xf;			// Where it wants to go X.
+	int yf;			// Where it wants to go Y.
 	String text;	// What it says.
+	
+	int xs;
+	int ys;
 	
 	boolean hover;	// If it's being hovered by the mouse.
 	Color color;
 	
 	
 	// Constructor
-	public Button(int x_, int y_, int w_, int h_, int x2_, int y2_, String text_)
+	public Boton(int x_, int y_, int w_, int h_, int xf_, int yf_, String text_)
 	{
 		x = x_;
 		y = y_;
 		w = w_;
 		h = h_;
-		x2 = x2_;
-		y2 = y2_;
+		xs = x;
+		ys = y;
+		xf = xf_;
+		yf = yf_;
 		text = text_;
 		
 		hover = false;
@@ -34,7 +39,8 @@ public class Button
 	// Step
 	public void update()
 	{
-		System.out.println(text);
+		x = lerp(x, xf, 0.05);
+		y = lerp(y, yf, 0.05);
 	}
 	
 	
@@ -42,6 +48,12 @@ public class Button
 	public void draw(Graphics2D g2d)
 	{
 		g2d.setColor(color);
-		g2d.fillRect(x, y, w, h);
+		g2d.fillRect(x-w/2, y-h/2, w, h);
+	}
+	
+	
+	public int lerp(int p1, int p2, double alpha)
+	{
+		return (int) (p1 + alpha * (p2 - p1));
 	}
 }
