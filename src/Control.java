@@ -18,11 +18,14 @@ public class Control extends JPanel implements ActionListener
 	ArrayList<Boton> botones;
 	ArrayList<SearchBar> campos;
 	
+	static ArrayList<Pelicula> peliculas;
+	
 	// Specifics
 	Boton		but_actors;
 	SearchBar 	search;
 	
 	String deftext;
+	String prevtext;
 	
 	DBConnect connect;
 
@@ -37,15 +40,17 @@ public class Control extends JPanel implements ActionListener
 		botones = new ArrayList<Boton>();
 		campos = new ArrayList<SearchBar>();
 		
+		peliculas = new ArrayList<Pelicula>();
+		
 		but_actors = new Boton(-200, Main.rh/2, 100, 100, Main.rw/2, Main.rh/2, "Todos los\nActores");
 		botones.add(but_actors);
 		
 		deftext = "Buscar (película, director, actor...)";
+		prevtext = deftext;
 		search = new SearchBar(100, 100, (int)(Main.rw/1.5), 84, 800, 200, deftext);
 		campos.add(search);
 		
-		connect = new DBConnect();
-		connect.getData();
+		connect = new DBConnect();		
 	}
 	
 	
@@ -66,19 +71,27 @@ public class Control extends JPanel implements ActionListener
 		// Dibuja todos los campos de texto.
 		for (int i=0; i<campos.size(); i++)
 			campos.get(i).draw(g2d);
+		
+		// Dibuja todas las películas encontradas.
+		for (int i=0; i<peliculas.size(); i++)
+			peliculas.get(i).draw(g2d);
 	}
 	
 	
 	// Step Event
 	public void actionPerformed(ActionEvent e)
 	{
-		if (search!=null && search.campo.getText().contentEquals(deftext))
+		if (search != null)
 		{
-			but_actors.entry = false;
-		}
-		else
-		{
-			but_actors.entry = true;
+			String tx = search.campo.getText();
+			
+			if (connect!=null && !tx.contentEquals("") && !tx.contentEquals(deftext) && !tx.contentEquals(prevtext))
+			{
+				prevtext = tx;
+				connect.Buscar(tx);
+				
+				but_actors.entry = false;
+			}
 		}
 		
 		// Actualiza todos los botones.

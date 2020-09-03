@@ -62,11 +62,7 @@ public class SearchBar
 	
 	
 	// Draw
-	public void draw(Graphics2D g2d)
-	{
-		//g2d.setColor(color);
-		//g2d.fillRect(x-w/2, y-h/2, w, h);
-	}
+	public void draw(Graphics2D g2d) {}
 	
 	
 	public int lerp(int p1, int p2, double alpha)

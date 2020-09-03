@@ -8,6 +8,8 @@ public class Main
 	static int rw = 1720;
 	static int rh = 1000;
 	
+	static int len = 256;
+	
 	
 	public static void main(String args[])
 	{
