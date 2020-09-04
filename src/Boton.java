@@ -15,6 +15,7 @@ public class Boton
 	but_type type;
 	
 	boolean pressed;
+	boolean able;
 	
 	int xs;
 	int ys;
@@ -42,6 +43,7 @@ public class Boton
 		hover = false;
 		entry = true;
 		pressed = false;
+		able = true;
 		
 		color = Color.orange;
 		color_hover = Color.red;
@@ -63,10 +65,14 @@ public class Boton
 		else if (hover && !inside)
 		{
 			hover = false;
+			able = true;
 		}
 		
-		if (hover && Main.input.isMousePressed())
+		if (hover && able && Main.input.isMousePressed())
+		{
 			pressed = true;
+			able = false;
+		}
 				
 		// Movement
 		x = lerp(x, entry ? xf : xs, 0.05);

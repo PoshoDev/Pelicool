@@ -114,7 +114,11 @@ public class Pelicula
 					break;
 					
 					case CANCEL:
-						inputs.clear();
+						edit_button.pressed = false;
+						edit_button.type = but_type.EDIT;
+						edit_button.text = "Editar";
+						edit = false;
+						
 						System.out.println("kansel");
 					break;
 				}

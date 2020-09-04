@@ -21,5 +21,4 @@ public class InputBox
 		campo.setBounds(x+lw, y, fw, h);
 		Main.frame.add(campo);
 	}
-	
 }

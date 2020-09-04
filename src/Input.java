@@ -6,7 +6,7 @@ import java.awt.event.MouseMotionListener;
 public class Input implements MouseListener, MouseMotionListener
 {
 	public int mx, my;
-	private boolean mouseClicked, mousePressed;
+	public boolean mouseClicked, mousePressed;
 	private boolean[] currentlyPressed, pressed;
 	
 	public Input()
