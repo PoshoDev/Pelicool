@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-enum but_type { EDIT, ALL_ACTORS };
+enum but_type { EDIT, CANCEL, SAVE, DELETE, ALL_ACTORS };
 
 public class Boton
 {
@@ -90,17 +90,6 @@ public class Boton
 		{
 			g2d.setColor(Color.white);
 			g2d.drawRect(x, y, w, h);
-		}
-	}
-	
-	
-	public void perform()
-	{
-		switch(type)
-		{
-			case EDIT:
-				
-			break;
 		}
 	}
 	

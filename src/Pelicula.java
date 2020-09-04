@@ -83,8 +83,11 @@ public class Pelicula
 		}
 		else if (hover && !inside)
 		{
-			hover = false;
-			edit_button = null;
+			if (!edit)
+			{
+				hover = false;
+				edit_button = null;
+			}
 		}
 		
 		if (edit_button != null)
@@ -93,16 +96,28 @@ public class Pelicula
 			
 			if (edit_button.pressed)
 			{
-				edit_button.pressed = false;
-				edit = true;
-				
-				int i = 0;
-				inputs.add(new InputBox(stx, y+8+(24*i++), "Título:", titulo));
-				inputs.add(new InputBox(stx, y+8+(24*i++), "Año:", año));
-				inputs.add(new InputBox(stx, y+8+(24*i++), "Género:", genero));
-				inputs.add(new InputBox(stx, y+8+(24*i++), "Duración:", duracion));
-				inputs.add(new InputBox(stx, y+8+(24*i++), "Descripción:", descripcion));
-				inputs.add(new InputBox(stx, y+8+(24*i++), "URL Imagen:", url));
+				switch(edit_button.type)
+				{
+					case EDIT:
+						edit_button.pressed = false;
+						edit_button.type = but_type.CANCEL;
+						edit_button.text = "Cancelar";
+						edit = true;
+						
+						int i = 0;
+						inputs.add(new InputBox(stx, y+8+(24*i++), "Título:", titulo));
+						inputs.add(new InputBox(stx, y+8+(24*i++), "Año:", año));
+						inputs.add(new InputBox(stx, y+8+(24*i++), "Género:", genero));
+						inputs.add(new InputBox(stx, y+8+(24*i++), "Duración:", duracion));
+						inputs.add(new InputBox(stx, y+8+(24*i++), "Descripción:", descripcion));
+						inputs.add(new InputBox(stx, y+8+(24*i++), "URL Imagen:", url));
+					break;
+					
+					case CANCEL:
+						inputs.clear();
+						System.out.println("kansel");
+					break;
+				}
 			}
 		}
 	}
