@@ -58,6 +58,8 @@ public class Pelicula
 		{
 			System.out.println("ERROR: "+ex);
 		}
+		
+		edit = false;
 	}
 	
 	
