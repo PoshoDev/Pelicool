@@ -15,8 +15,8 @@ public class Control extends JPanel implements ActionListener
 	
 	Timer loopTimer;	// Timer for the program's loop.
 	
-	ArrayList<Boton> botones;
-	ArrayList<SearchBar> campos;
+	static ArrayList<Boton> botones;
+	static ArrayList<SearchBar> campos;
 	
 	static ArrayList<Pelicula> peliculas;
 	

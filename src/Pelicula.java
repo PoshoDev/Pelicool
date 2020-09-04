@@ -24,7 +24,10 @@ public class Pelicula
 	
 	boolean hover;
 	boolean edit;
-	Boton edit_button;
+	
+	Boton button_edit;
+	Boton button_save;
+	Boton button_delete;
 	
 	ArrayList<InputBox> inputs;
 	
@@ -63,7 +66,10 @@ public class Pelicula
 		
 		hover = false;
 		edit = false;
-		edit_button = null;
+		
+		button_edit = null;
+		button_save = null;
+		button_delete = null;
 		
 		inputs = new ArrayList<InputBox>();
 	}
@@ -79,29 +85,29 @@ public class Pelicula
 		if (!hover && inside)
 		{
 			hover = true;
-			edit_button = new Boton(x+w-64, y, 64, 64, x+w-64, y, "Editar", but_type.EDIT);
+			button_edit = new Boton(x+w-64, y, 64, 64, x+w-64, y, "Editar", but_type.EDIT);
 		}
 		else if (hover && !inside)
 		{
 			if (!edit)
 			{
 				hover = false;
-				edit_button = null;
+				button_edit = null;
 			}
 		}
 		
-		if (edit_button != null)
+		if (button_edit != null)
 		{
-			edit_button.update();
+			button_edit.update();
 			
-			if (edit_button.pressed)
+			if (button_edit.pressed)
 			{
-				switch(edit_button.type)
+				switch(button_edit.type)
 				{
 					case EDIT:
-						edit_button.pressed = false;
-						edit_button.type = but_type.CANCEL;
-						edit_button.text = "Cancelar";
+						button_edit.pressed = false;
+						button_edit.type = but_type.CANCEL;
+						button_edit.text = "Cancelar";
 						edit = true;
 						
 						int i = 0;
@@ -111,18 +117,29 @@ public class Pelicula
 						inputs.add(new InputBox(stx, y+8+(24*i++), "Duración:", duracion));
 						inputs.add(new InputBox(stx, y+8+(24*i++), "Descripción:", descripcion));
 						inputs.add(new InputBox(stx, y+8+(24*i++), "URL Imagen:", url));
+						
+						button_save = new Boton(x+w-64, y, 64, 64, x+w-64, y+h-48, "Guardar", but_type.EDIT);
+						button_delete = new Boton(x+w-64, y, 64, 64, stx, y+h-48, "Eliminar", but_type.EDIT);
 					break;
 					
 					case CANCEL:
-						edit_button.pressed = false;
-						edit_button.type = but_type.EDIT;
-						edit_button.text = "Editar";
+						button_edit.pressed = false;
+						button_edit.type = but_type.EDIT;
+						button_edit.text = "Editar";
 						edit = false;
 						
 						System.out.println("kansel");
 					break;
 				}
 			}
+			
+			
+			// Other buttons
+			if (button_save != null)
+				button_save.update();
+			
+			if (button_delete != null)
+				button_delete.update();
 		}
 	}
 		
@@ -161,11 +178,18 @@ public class Pelicula
 		// Button
 		if (hover)
 		{
-			edit_button.draw(g2d);
+			button_edit.draw(g2d);
 			
 			g2d.setColor(Color.white);
 			g2d.drawRect(x, y, w, h);
 		}
+		
+		// Other buttons
+		if (button_save != null)
+			button_save.draw(g2d);
+		
+		if (button_delete != null)
+			button_delete.draw(g2d);
 	}
 	
 	
