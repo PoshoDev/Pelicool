@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 
-enum stg { MAIN, SEARCH, DEL_MOVIE, NEW_MOVIE, NEW_MOVIE_SEND, NEW_ACTOR, NEW_ACTOR_SEND };
+enum stg { MAIN, SEARCH, DEL_MOVIE, UPD_MOVIE, NEW_MOVIE, NEW_MOVIE_SEND, NEW_ACTOR, NEW_ACTOR_SEND };
 
 public class Control extends JPanel implements ActionListener
 {
@@ -100,6 +100,7 @@ public class Control extends JPanel implements ActionListener
 			{
 				case MAIN:				roomReset();			break;
 				case DEL_MOVIE:			startDelMovie(editing);	break;
+				case UPD_MOVIE:			startUpdMovie(editing);	break;
 				case NEW_MOVIE:			startNewMovie();		break;
 				case NEW_MOVIE_SEND:	startNewMovieSend();	break;
 			}
@@ -186,6 +187,31 @@ public class Control extends JPanel implements ActionListener
 		search.entry = true;
 		
 		stage = stg.MAIN;
+	}
+	
+	
+	public void startUpdMovie(Pelicula mov)
+	{
+		Pelicula noo = new Pelicula(-100, -100, mov.titulo, mov.año, mov.genero, mov.duracion, mov.descripcion, mov.url);
+		mov.setData();
+		connect.updMovie(noo, mov);
+				
+		mov.removeFields();
+		
+		for (int i=0; i<peliculas.size(); i++)
+			peliculas.get(i).removeFields();
+		
+		peliculas.clear();
+		
+		for (int i=0; i<botones.size(); i++)
+			botones.get(i).entry = true;
+		
+		search.entry = true;
+		search.campo.setText(search.def);
+		
+		stage = stg.MAIN;
+		
+		System.out.println("del");
 	}
 	
 	

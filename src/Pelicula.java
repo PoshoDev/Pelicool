@@ -229,7 +229,7 @@ public class Pelicula
 		inputs.add(new InputBox(stx, y+8+(24*i++), "Descripción:", descripcion, inp.TEXTBOX));
 		inputs.add(new InputBox(stx, y+8+(24*i++), "URL Imagen:", url, inp.TEXTBOX));
 		
-		button_save = new Boton(Main.rw+100, y+h-64, 64, 64, x+w-64, y+h-64, "Guardar", Control.stage==stg.NEW_MOVIE ? but_type.SAVE_ADD : but_type.SAVE);
+		button_save = new Boton(Main.rw+100, y+h-64, 64, 64, x+w-64, y+h-64, "Guardar", Control.stage==stg.NEW_MOVIE ? but_type.SAVE_ADD : but_type.UPD_MOVIE);
 		button_delete = new Boton(-100, y+h-64, 64, 64, stx+16, y+h-64, "Eliminar", but_type.DEL_MOVIE);
 		
 		Control.editing = this;

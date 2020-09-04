@@ -111,4 +111,19 @@ public class DBConnect
 			System.out.println("DBConnect Error: "+ex);
 		}
 	}
+	
+	
+	public void updMovie(Pelicula mov, Pelicula noo)
+	{
+		try
+		{
+			String query = "UPDATE pelicula SET titulo='"+noo.titulo+"', año='"+noo.año+"', genero='"+noo.genero+"', duracion='"+noo.duracion+"', descripcion='"+noo.descripcion+"', imagen='"+noo.url+"' WHERE titulo='"+mov.titulo+"' AND año='"+mov.año+"';";
+			st.executeUpdate(query);
+			System.out.println("SENT QUERY: "+query);
+		}
+		catch(Exception ex)
+		{
+			System.out.println("DBConnect Error: "+ex);
+		}
+	}
 }
