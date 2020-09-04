@@ -96,4 +96,19 @@ public class DBConnect
 			System.out.println("DBConnect Error: "+ex);
 		}
 	}
+	
+	
+	public void delMovie(Pelicula mov)
+	{
+		try
+		{
+			String query = 	"DELETE FROM pelicula WHERE titulo = '"+mov.titulo+"' AND año = '"+mov.año+"';";
+			st.executeUpdate(query);
+			System.out.println("SENT QUERY: "+query);
+		}
+		catch(Exception ex)
+		{
+			System.out.println("DBConnect Error: "+ex);
+		}
+	}
 }

@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-enum but_type { EDIT, CANCEL, SAVE, SAVE_ADD, DELETE, NEW_MOVIE, ALL_ACTORS };
+enum but_type { EDIT, CANCEL, SAVE, SAVE_ADD, DEL_MOVIE, NEW_MOVIE, ALL_ACTORS };
 
 public class Boton
 {
@@ -106,6 +106,10 @@ public class Boton
 	{
 		switch(type)
 		{
+			case DEL_MOVIE:
+				Control.stage = stg.DEL_MOVIE;
+			break;
+			
 			case NEW_MOVIE:
 				Control.stage = stg.NEW_MOVIE;
 			break;

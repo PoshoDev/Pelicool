@@ -119,6 +119,12 @@ public class Pelicula
 						button_edit.text = "Editar";
 						edit = false;
 						
+						button_edit = null;
+						button_save = null;
+						button_delete = null;
+						
+						removeFields();
+						
 						System.out.println("kansel");
 					break;
 				}
@@ -169,7 +175,8 @@ public class Pelicula
 		// Button
 		if (hover)
 		{
-			button_edit.draw(g2d);
+			if (button_edit != null)
+				button_edit.draw(g2d);
 			
 			g2d.setColor(Color.white);
 			g2d.drawRect(x, y, w, h);
@@ -222,8 +229,10 @@ public class Pelicula
 		inputs.add(new InputBox(stx, y+8+(24*i++), "Descripción:", descripcion, inp.TEXTBOX));
 		inputs.add(new InputBox(stx, y+8+(24*i++), "URL Imagen:", url, inp.TEXTBOX));
 		
-		button_save = new Boton(x+w-64, y, 64, 64, x+w-64, y+h-48, "Guardar", Control.stage==stg.NEW_MOVIE ? but_type.SAVE_ADD : but_type.SAVE);
-		button_delete = new Boton(x+w-64, y, 64, 64, stx, y+h-48, "Eliminar", but_type.DELETE);
+		button_save = new Boton(Main.rw+100, y+h-64, 64, 64, x+w-64, y+h-64, "Guardar", Control.stage==stg.NEW_MOVIE ? but_type.SAVE_ADD : but_type.SAVE);
+		button_delete = new Boton(-100, y+h-64, 64, 64, stx+16, y+h-64, "Eliminar", but_type.DEL_MOVIE);
+		
+		Control.editing = this;
 	}
 	
 	
