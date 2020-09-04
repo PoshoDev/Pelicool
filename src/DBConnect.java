@@ -80,4 +80,20 @@ public class DBConnect
 			System.out.println("DBConnect Error: "+ex);
 		}
 	}
+	
+	
+	public void sendNewMovie(Pelicula mov)
+	{
+		try
+		{
+			String query = 	"INSERT INTO pelicula (Titulo, Año, Genero, Descripcion, Duracion, Imagen) VALUES ('"
+							+mov.titulo+"', '"+mov.año+"', '"+mov.genero+"', '"+mov.descripcion+"', '"+mov.duracion+"', '"+mov.url+"');";
+			st.executeUpdate(query);
+			System.out.println("SENT QUERY: "+query);
+		}
+		catch(Exception ex)
+		{
+			System.out.println("DBConnect Error: "+ex);
+		}
+	}
 }

@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-enum but_type { EDIT, CANCEL, SAVE, DELETE, ALL_ACTORS };
+enum but_type { EDIT, CANCEL, SAVE, SAVE_ADD, DELETE, NEW_MOVIE, ALL_ACTORS };
 
 public class Boton
 {
@@ -72,6 +72,8 @@ public class Boton
 		{
 			pressed = true;
 			able = false;
+			
+			perform();
 		}
 				
 		// Movement
@@ -96,6 +98,21 @@ public class Boton
 		{
 			g2d.setColor(Color.white);
 			g2d.drawRect(x, y, w, h);
+		}
+	}
+	
+	
+	public void perform()
+	{
+		switch(type)
+		{
+			case NEW_MOVIE:
+				Control.stage = stg.NEW_MOVIE;
+			break;
+			
+			case SAVE_ADD:
+				Control.stage = stg.NEW_MOVIE_SEND;
+			break;
 		}
 	}
 	

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+
 public class Pelicula
 {
 	int x, y, w, h, stx;
@@ -34,10 +35,7 @@ public class Pelicula
 	
 	public Pelicula(int x_, int y_, String t, String a, String g, String du, String de, String url_)
 	{
-		x = x_;
-		y = y_;
-		
-		stx = x + 192;
+		setDefaults(x_, y_);
 		
 		titulo = 	  t;
 		año = 		  a;
@@ -60,18 +58,23 @@ public class Pelicula
 		{
 			System.out.println("ERROR: "+ex);
 		}
+	}
+	
+	
+	public Pelicula(int x_, int y_)
+	{
+		setDefaults(x_, y_);
 		
-		w = (int)(Main.rw/1.5);
-		h = Main.len;
+		titulo = 	  "";
+		año = 		  "";
+		genero = 	  "";
+		duracion = 	  "";
+		descripcion = "";
+		url =		  "";
 		
-		hover = false;
-		edit = false;
+		button_edit = new Boton(x+w-64, y, 64, 64, x+w-64, y, "Cancelar", but_type.CANCEL);
 		
-		button_edit = null;
-		button_save = null;
-		button_delete = null;
-		
-		inputs = new ArrayList<InputBox>();
+		startEdit();
 	}
 	
 	
@@ -105,21 +108,7 @@ public class Pelicula
 				switch(button_edit.type)
 				{
 					case EDIT:
-						button_edit.pressed = false;
-						button_edit.type = but_type.CANCEL;
-						button_edit.text = "Cancelar";
-						edit = true;
-						
-						int i = 0;
-						inputs.add(new InputBox(stx, y+8+(24*i++), "Título:", titulo));
-						inputs.add(new InputBox(stx, y+8+(24*i++), "Año:", año));
-						inputs.add(new InputBox(stx, y+8+(24*i++), "Género:", genero));
-						inputs.add(new InputBox(stx, y+8+(24*i++), "Duración:", duracion));
-						inputs.add(new InputBox(stx, y+8+(24*i++), "Descripción:", descripcion));
-						inputs.add(new InputBox(stx, y+8+(24*i++), "URL Imagen:", url));
-						
-						button_save = new Boton(x+w-64, y, 64, 64, x+w-64, y+h-48, "Guardar", but_type.EDIT);
-						button_delete = new Boton(x+w-64, y, 64, 64, stx, y+h-48, "Eliminar", but_type.EDIT);
+						startEdit();
 					break;
 					
 					case CANCEL:
@@ -213,5 +202,66 @@ public class Pelicula
 	        g2.drawString(line, startX, startY);
 	        startY = startY + lineHeight;
 	    }
+	}
+	
+	
+	private void startEdit()
+	{
+		button_edit.pressed = false;
+		button_edit.type = but_type.CANCEL;
+		button_edit.text = "Cancelar";
+		edit = true;
+		
+		int i = 0;
+		inputs.add(new InputBox(stx, y+8+(24*i++), "Título:", titulo, inp.TEXTBOX));
+		inputs.add(new InputBox(stx, y+8+(24*i++), "Año:", año, inp.TEXTBOX));
+		inputs.add(new InputBox(stx, y+8+(24*i++), "Género:", genero, inp.TEXTBOX));
+		inputs.add(new InputBox(stx, y+8+(24*i++), "Duración:", duracion, inp.TEXTBOX));
+		inputs.add(new InputBox(stx, y+8+(24*i++), "Descripción:", descripcion, inp.TEXTBOX));
+		inputs.add(new InputBox(stx, y+8+(24*i++), "URL Imagen:", url, inp.TEXTBOX));
+		
+		button_save = new Boton(x+w-64, y, 64, 64, x+w-64, y+h-48, "Guardar", Control.stage==stg.NEW_MOVIE ? but_type.SAVE_ADD : but_type.SAVE);
+		button_delete = new Boton(x+w-64, y, 64, 64, stx, y+h-48, "Eliminar", but_type.DELETE);
+	}
+	
+	
+	private void setDefaults(int x_, int y_)
+	{
+		x = x_;
+		y = y_;
+		
+		stx = x + 192;
+		
+		w = (int)(Main.rw/1.5);
+		h = Main.len;
+		
+		hover = false;
+		edit = true;
+		
+		button_edit = null;
+		button_save = null;
+		button_delete = null;
+		
+		inputs = new ArrayList<InputBox>();
+	}
+	
+	
+	public void setData()
+	{
+		int i = 0;
+		
+		titulo = 		inputs.get(i++).getItem();
+		año =			inputs.get(i++).getItem();
+		genero =		inputs.get(i++).getItem();
+		duracion =		inputs.get(i++).getItem();
+		descripcion =	inputs.get(i++).getItem();
+		url =			inputs.get(i++).getItem();
+	}
+	
+	
+	public void removeFields()
+	{
+		for(int i=0; i<inputs.size(); i++)
+			inputs.get(i).remove();
 	}
 }

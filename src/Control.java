@@ -4,9 +4,11 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+
+enum stg { MAIN, SEARCH, NEW_MOVIE, NEW_MOVIE_SEND, NEW_ACTOR, NEW_ACTOR_SEND };
 
 public class Control extends JPanel implements ActionListener
 {
@@ -27,6 +29,9 @@ public class Control extends JPanel implements ActionListener
 	String deftext;
 	String prevtext;
 	
+	static stg stage;
+	stg prev;
+	
 	DBConnect connect;
 
 	// Constructor
@@ -42,13 +47,16 @@ public class Control extends JPanel implements ActionListener
 		
 		peliculas = new ArrayList<Pelicula>();
 		
-		but_actors = new Boton(-2000, Main.rh/2, 100, 100, Main.rw/2, Main.rh/2, "Todos los\nActores", but_type.ALL_ACTORS);
+		but_actors = new Boton(-2000, Main.rh/2, 100, 100, Main.rw/2, Main.rh/2, "Nueva Película", but_type.NEW_MOVIE);
 		botones.add(but_actors);
 		
 		deftext = "Buscar (película, director, actor...)";
 		prevtext = deftext;
 		search = new SearchBar((int)(Main.rw/2), -300, (int)(Main.rw/1.5), 84, (int)(Main.rw/2), 400, deftext);
 		campos.add(search);
+		
+		stage = stg.MAIN;
+		prev = stage;
 		
 		connect = new DBConnect();		
 	}
@@ -81,6 +89,19 @@ public class Control extends JPanel implements ActionListener
 	// Step Event
 	public void actionPerformed(ActionEvent e)
 	{
+		// Check change
+		if (stage != prev)
+		{
+			prev = stage;
+			
+			switch(stage)
+			{
+				case NEW_MOVIE:			startNewMovie();		break;
+				case NEW_MOVIE_SEND:	startNewMovieSend();	break;
+			}
+		}
+		
+		
 		if (search != null)
 		{
 			String tx = search.campo.getText();
@@ -124,5 +145,42 @@ public class Control extends JPanel implements ActionListener
 		
 		// Draws everything at the end.
 		repaint();
+	}
+	
+	public void startNewMovie()
+	{
+		stage = stg.NEW_MOVIE;
+		
+		for (int i=0; i<botones.size(); i++)
+			botones.get(i).entry = false;
+		
+		search.entry = false;
+		
+
+		peliculas.clear();
+		
+		int x = (int)(Main.rw/3/2);
+		int y = 164;
+		
+		peliculas.add(new Pelicula(x, y));
+	}
+	
+	public void startNewMovieSend()
+	{
+		Pelicula mov = peliculas.get(0);
+		
+		mov.setData();
+		connect.sendNewMovie(mov);
+		
+		mov.removeFields();
+		
+		peliculas.clear();
+		
+		for (int i=0; i<botones.size(); i++)
+			botones.get(i).entry = true;
+		
+		search.entry = true;
+		
+		stage = stg.MAIN;
 	}
 }
